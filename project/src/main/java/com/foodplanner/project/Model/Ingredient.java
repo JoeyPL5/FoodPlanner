@@ -1,4 +1,4 @@
-package com.foodplanner.project.Food;
+package com.foodplanner.project.Model;
 
 public class Ingredient {
     private int id;

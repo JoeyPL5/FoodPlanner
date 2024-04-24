@@ -1,9 +1,19 @@
-package com.foodplanner.project.Food;
+package com.foodplanner.project.Model;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Recipe {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long dbID;
+
+    private int id; // ID provided by the API
     private String title;
     private String image;
     private float pricePerServing;
@@ -27,6 +37,10 @@ public class Recipe {
     public Recipe() {} // default
     
     // Getters
+    public Long getdbId() {
+        return this.dbID;
+    }
+
     public int getId() {
         return id;
     }

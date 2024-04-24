@@ -1,4 +1,4 @@
-package com.foodplanner.project.Food.API;
+package com.foodplanner.project.Model.API;
 
 import java.util.List;
 

@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodplanner.project.Food.Ingredient;
-import com.foodplanner.project.Food.Recipe;
+import com.foodplanner.project.Model.Ingredient;
+import com.foodplanner.project.Model.Recipe;
 
 @RestController
 public class PlannerController {

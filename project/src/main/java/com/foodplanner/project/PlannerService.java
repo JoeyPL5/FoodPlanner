@@ -4,7 +4,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.foodplanner.project.Food.Ingredient;
-import com.foodplanner.project.Food.Recipe;
-import com.foodplanner.project.Food.API.IngredientSearchResult;
-import com.foodplanner.project.Food.API.RecipeSearchResult;
+import com.foodplanner.project.Database.RecipeRepository;
+import com.foodplanner.project.Model.Ingredient;
+import com.foodplanner.project.Model.Recipe;
+import com.foodplanner.project.Model.API.IngredientSearchResult;
+import com.foodplanner.project.Model.API.RecipeSearchResult;
 import com.foodplanner.project.Util.Constants;
 import com.foodplanner.project.Util.DataUtil;
 import com.google.gson.Gson;
@@ -27,7 +27,7 @@ public class PlannerService {
     private String apiKey;
     private String apiBase;
 
-    public PlannerService(RestTemplate restTemplate, 
+    public PlannerService(RestTemplate restTemplate, RecipeRepository recipeRepository,
                                     @Value("${food-api.key}") String key, 
                                     @Value("${food-api.base}") String base) {
         this.restTemplate = restTemplate;
@@ -145,4 +145,8 @@ public class PlannerService {
         Ingredient response = this.sendQuery(url, Ingredient.class);
         return response; 
     }
+
+    
+
+    
 }

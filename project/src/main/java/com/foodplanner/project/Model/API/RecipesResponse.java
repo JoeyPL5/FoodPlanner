@@ -1,8 +1,8 @@
-package com.foodplanner.project.Food.API;
+package com.foodplanner.project.Model.API;
 
 import java.util.List;
 
-import com.foodplanner.project.Food.Recipe;
+import com.foodplanner.project.Model.Recipe;
 
 public class RecipesResponse {
     private List<Recipe> recipes;
