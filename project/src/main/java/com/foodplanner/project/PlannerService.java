@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.foodplanner.project.Database.RecipeRepository;
 import com.foodplanner.project.Model.Ingredient;
 import com.foodplanner.project.Model.Recipe;
 import com.foodplanner.project.Model.API.IngredientSearchResult;
 import com.foodplanner.project.Model.API.RecipeSearchResult;
+import com.foodplanner.project.Model.Database.RecipeRepository;
 import com.foodplanner.project.Util.Constants;
 import com.foodplanner.project.Util.DataUtil;
 import com.google.gson.Gson;

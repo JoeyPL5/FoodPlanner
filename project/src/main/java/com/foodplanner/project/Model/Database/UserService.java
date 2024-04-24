@@ -1,4 +1,4 @@
-package com.foodplanner.project.Database;
+package com.foodplanner.project.Model.Database;
 
 import java.util.Optional;
 
