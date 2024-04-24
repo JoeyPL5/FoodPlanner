@@ -33,9 +33,9 @@ public class PlannerController {
         return service.searchRecipe(input);
     }
 
-    @GetMapping("/recipe")
-    public Recipe getRecipeById(@RequestParam int id) {
-        return service.getRecipeById(id);
+    @GetMapping("/recipes")
+    public List<Recipe> getRecipesById(@RequestParam int... ids) {
+        return service.getRecipesById(ids);
     }
     
 

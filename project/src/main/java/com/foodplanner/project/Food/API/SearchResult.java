@@ -1,4 +1,4 @@
-package com.foodplanner.project.Food.SearchResults;
+package com.foodplanner.project.Food.API;
 
 import java.util.List;
 

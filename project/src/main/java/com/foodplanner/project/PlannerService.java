@@ -1,5 +1,6 @@
 package com.foodplanner.project;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,10 +14,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.foodplanner.project.Food.Ingredient;
 import com.foodplanner.project.Food.Recipe;
-import com.foodplanner.project.Food.SearchResults.IngredientSearchResult;
-import com.foodplanner.project.Food.SearchResults.RecipeSearchResult;
+import com.foodplanner.project.Food.API.IngredientSearchResult;
+import com.foodplanner.project.Food.API.RecipeSearchResult;
 import com.foodplanner.project.Util.Constants;
+import com.foodplanner.project.Util.DataUtil;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @Service
 public class PlannerService {
@@ -60,9 +63,23 @@ public class PlannerService {
     private <T> T sendQuery(String url, Class<T> responseType) {
         ResponseEntity<String> entity = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
         String body = entity.getBody();
+        System.out.println(body);
         Gson gson = new Gson();
         T response = gson.fromJson(body, responseType);
 
+        if (response != null) {
+            return response;
+        } else {
+            throw new IllegalArgumentException("Unable to fetch query results for the given parameters.\n");
+        }
+    }
+
+    // Overloaded to take in a Type instead of a class. 
+    private <T> T sendQuery(String url, Type type) {
+        ResponseEntity<String> entity = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
+        String body = entity.getBody();
+        Gson gson = new Gson();
+        T response = gson.fromJson(body, type);
         if (response != null) {
             return response;
         } else {
@@ -86,17 +103,17 @@ public class PlannerService {
     }
 
     /**
-     * Retrieve an recipe from the API with the given id. 
+     * Retrieve recipes from the API with the given ids. 
      * 
-     * @param id the id of the recipe
+     * @param id the ids of the recipe
      * @return the corresponding Recipe object
      */
-    public Recipe getRecipeById(int id) {
+    public List<Recipe> getRecipesById(int... ids) {
         Map<String, String> params = new HashMap<>();
-        //params.put("id", Integer.toString(id));
-        String endpoint = String.format(Constants.RECIPE_BY_ID_ENDPOINT, id);
+        params.put("ids", DataUtil.intsToCommaSeparatedString(ids));
+        String endpoint = String.format(Constants.RECIPE_BY_ID_ENDPOINT, ids);
         String url = this.buildQuery(params, endpoint);
-        Recipe response = this.sendQuery(url, Recipe.class);
+        List<Recipe> response = this.sendQuery(url, new TypeToken<List<Recipe>>(){}.getType());
         return response; 
     }
 
@@ -123,7 +140,6 @@ public class PlannerService {
      */
     public Ingredient getIngredientById(int id) {
         Map<String, String> params = new HashMap<>();
-        //params.put("id", Integer.toString(id));
         String endpoint = String.format(Constants.INGREDIENT_BY_ID_ENDPOINT, id);
         String url = this.buildQuery(params, endpoint);
         Ingredient response = this.sendQuery(url, Ingredient.class);
